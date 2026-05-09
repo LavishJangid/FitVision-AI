@@ -1,183 +1,66 @@
-# FitVision AI - MVP (Phase 1 + 2)
+FitVision AI 🧠🏋️
+Real-Time Posture & Exercise Form Correction Using Computer Vision
 
-FitVision AI is a real-time posture and exercise form correction MVP using React + FastAPI + OpenCV + MediaPipe Pose.
+FitVision AI is an AI-powered fitness assistant that uses Computer Vision and Machine Learning to analyze body posture and exercise movements in real time through a webcam. The system detects body landmarks, calculates joint angles, counts repetitions, and provides instant corrective feedback to help users maintain proper exercise form and prevent injuries.
 
-## Architecture
+This project combines OpenCV, MediaPipe Pose, FastAPI, and React to create a virtual AI fitness coach capable of monitoring workouts without requiring wearable devices or expensive equipment.
 
-- `frontend/` - React + Vite dark-mode dashboard with Home, Workout, Dashboard pages
-- `backend/` - FastAPI API + WebSocket stream + pose + exercise analysis
-- `models/` - placeholder for trained/optimized CV models
-- `pose_detection/` - top-level area for future shared pose modules
-- `exercise_logic/` - top-level area for future shared exercise business logic
-- `database/` - migrations and persistence layer placeholder
-- `utils/` - shared scripts/utilities placeholder
+🚀 Features
+🎥 Real-time webcam posture tracking
+🦴 Skeleton overlay using pose estimation
+📐 Joint angle calculation
+🏋️ Exercise detection:
+Squats
+Push-ups
+Planks
+🔢 Automatic rep counting
+⚠️ Instant posture correction feedback
+📊 Form accuracy scoring
+📈 Workout session tracking dashboard
+⚡ Low-latency real-time processing
+🧠 Tech Stack
+Frontend
+React + Vite
+Tailwind CSS
+Backend
+FastAPI (Python)
+Computer Vision & AI
+OpenCV
+MediaPipe Pose
+NumPy
+scikit-learn
+Database
+PostgreSQL
+📌 Problem Statement
 
-## Implemented MVP Features
+Millions of people perform workouts without professional guidance, leading to poor posture, injuries, and ineffective training. Personal trainers are expensive and online tutorials cannot provide personalized real-time corrections.
 
-- Real-time webcam capture in browser
-- WebSocket streaming to backend for low-latency updates
-- MediaPipe full-body pose landmarks detection
-- Skeleton overlay rendering on backend frames
-- Joint angles: knee, elbow, hip
-- Exercise support: squat, pushup, plank
-- Form feedback examples:
-  - Keep your back straight
-  - Lower your squat deeper
-  - Align your elbows under shoulders
-- Rep counting for squats and pushups
-- Live form accuracy score (0-100)
-- Neon dark SaaS UI with status panel + controls
-- Session tracking with calories, duration, average/best score
-- Goal progress input (rep target)
-- Dashboard achievements + recent sessions feed
-- Persistent workout history (`database/sessions.json`)
-- Progress API endpoints for stats and session history
-- Account system (register/login/profile)
-- Voice AI coach (browser text-to-speech corrective cues)
-- PDF report export (`fitvision-report.pdf`)
-- Leaderboard + challenge quests
-- Dockerized deployment with `docker-compose`
+FitVision AI solves this problem by turning a standard webcam into an intelligent AI fitness coach capable of monitoring posture and delivering live corrective feedback.
 
-## Backend Structure
+💡 Solution
 
-```text
-backend/
-  app/
-    api/routes/
-      health.py
-      workout.py
-    core/config.py
-    schemas/analysis.py
-    pose_detection/mediapipe_pose.py
-    exercise_logic/detector.py
-    services/workout_service.py
-    utils/angles.py
-    main.py
-  requirements.txt
-  .env.example
-```
+The application captures webcam frames using OpenCV and detects body landmarks through MediaPipe Pose. Joint angles are calculated using vector mathematics to analyze posture during exercises.
 
-## Frontend Structure
+The AI engine:
 
-```text
-frontend/src/
-  components/
-    Layout.jsx
-    StatusPanel.jsx
-  hooks/
-    useWorkoutSocket.js
-  pages/
-    HomePage.jsx
-    WorkoutPage.jsx
-    DashboardPage.jsx
-  services/api.js
-  App.jsx
-  main.jsx
-  index.css
-```
+Detects incorrect posture
+Provides real-time feedback
+Counts repetitions automatically
+Tracks workout performance
 
-## Environment Variables
+Example corrections:
 
-### Frontend (`frontend/.env`)
-
-Copy from `frontend/.env.example`:
-
-```env
-VITE_API_BASE_URL=http://127.0.0.1:8000
-VITE_WS_BASE_URL=ws://127.0.0.1:8000
-```
-
-### Backend (`backend/.env`)
-
-Copy from `backend/.env.example`:
-
-```env
-APP_NAME=FitVision AI API
-DEBUG=true
-ALLOWED_ORIGINS=http://localhost:5173
-```
-
-## Installation
-
-### 1) Backend setup
-
-```bash
-cd backend
-python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS/Linux
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-### 2) Frontend setup
-
-```bash
-cd frontend
-npm install
-```
-
-## Run Commands
-
-### Run backend
-
-```bash
-cd backend
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
-
-### Run frontend
-
-```bash
-cd frontend
-npm run dev
-```
-
-Frontend URL: `http://localhost:5173`
-
-## API Endpoints
-
-- `GET /` - basic service message
-- `GET /health` - health check
-- `WS /workout/stream` - realtime workout analysis stream
-- `POST /progress/sessions` - save completed workout session
-- `GET /progress/sessions` - fetch recent sessions
-- `GET /progress/stats` - fetch dashboard aggregate metrics
-- `POST /auth/register` - create account
-- `POST /auth/login` - login and get token
-- `GET /auth/me` - fetch profile
-- `GET /progress/challenges` - personalized challenge progress
-- `GET /progress/leaderboard` - global leaderboard
-
-Authenticated endpoints require:
-
-```http
-Authorization: Bearer <token>
-```
-
-## One-Command Docker Run
-
-```bash
-docker compose up --build
-```
-
-- Frontend: `http://localhost:5173`
-- Backend: `http://localhost:8000`
-
-WebSocket payload expected from frontend:
-
-```json
-{
-  "exercise": "squat",
-  "frame": "data:image/jpeg;base64,..."
-}
-```
-
-## Next Steps (Phase 3+)
-
-- add database persistence (sessions/history)
-- add authentication and user profiles
-- add personalized plans and adaptive thresholds
-- add GPU inference mode and frame batching
-- add test suite + CI
+“Keep your back straight”
+“Lower your squat deeper”
+“Align your elbows”
+🏗️ Project Architecture
+FitVision-AI/
+│
+├── frontend/             # React frontend
+├── backend/              # FastAPI backend
+├── pose_detection/       # MediaPipe pose logic
+├── exercise_logic/       # Form correction logic
+├── utils/                # Helper functions
+├── models/               # ML models
+├── database/             # Database configuration
+└── README.md
